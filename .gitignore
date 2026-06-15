@@ -15,6 +15,9 @@
 Icon
 # Thumbnails
 ._*
+# AWS installers
+awscliv2.zip
+aws/
 # Files that might appear in the root of a volume
 .DocumentRevisions-V100
 .fseventsd
