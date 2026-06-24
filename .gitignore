@@ -10,7 +10,6 @@ terraform.tfvars
 
 # AWS installers
 awscliv2.zip
-aws/
 
 # Python
 __pycache__/
