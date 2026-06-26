@@ -1,7 +1,20 @@
 variable "aws_region" {
-  type = string
+  description = "AWS deployment region"
+  type        = string
 }
 
 variable "environment" {
-  type = string
+  description = "Deployment environment"
+  type        = string
+}
+
+variable "project_name" {
+  description = "Project name"
+  type        = string
+}
+
+variable "kms_key_alias" {
+  description = "KMS Alias"
+  type        = string
+  default     = "alias/aws/s3"
 }

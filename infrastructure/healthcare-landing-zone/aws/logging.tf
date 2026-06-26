@@ -1,27 +1,37 @@
 #############################################
-# Healthcare Audit Log Bucket
+# Audit Bucket
 #############################################
 
 module "audit_logs_bucket" {
+
   source = "../../../modules/s3"
 
-  bucket_name = "dev-healthcare-audit-logs-597864876942"
-  kms_key_id  = "alias/aws/s3"
+  bucket_name = local.audit_bucket_name
 
-  logging_bucket_name = "dev-healthcare-audit-logging-597864876942"
-  logging_kms_key_id  = "alias/aws/s3"
+  kms_key_id = var.kms_key_alias
+
+  logging_bucket_name = local.logging_bucket_name
+
+  logging_kms_key_id = var.kms_key_alias
 
   s3_bucket_policy = jsonencode({
+
     Version = "2012-10-17"
+
     Statement = [
+
       {
-        Sid    = "AWSCloudTrailWrite"
+        Sid = "AWSCloudTrailWrite"
+
         Effect = "Allow"
+
         Principal = {
           Service = "cloudtrail.amazonaws.com"
         }
-        Action   = "s3:PutObject"
-        Resource = "arn:aws:s3:::dev-healthcare-audit-logs-597864876942/AWSLogs/597864876942/*"
+
+        Action = "s3:PutObject"
+
+        Resource = "arn:aws:s3:::${local.audit_bucket_name}/AWSLogs/${local.account_id}/*"
 
         Condition = {
           StringEquals = {
@@ -29,14 +39,19 @@ module "audit_logs_bucket" {
           }
         }
       },
+
       {
-        Sid    = "AWSCloudTrailAclCheck"
+        Sid = "AWSCloudTrailAclCheck"
+
         Effect = "Allow"
+
         Principal = {
           Service = "cloudtrail.amazonaws.com"
         }
-        Action   = "s3:GetBucketAcl"
-        Resource = "arn:aws:s3:::dev-healthcare-audit-logs-597864876942"
+
+        Action = "s3:GetBucketAcl"
+
+        Resource = "arn:aws:s3:::${local.audit_bucket_name}"
       }
     ]
   })
@@ -47,8 +62,10 @@ module "audit_logs_bucket" {
 #############################################
 
 module "cloudtrail" {
+
   source = "../../../modules/cloudtrail"
 
-  trail_name     = "dev-healthcare-cloudtrail"
-  s3_bucket_name = "dev-healthcare-audit-logs-597864876942"
+  trail_name = local.cloudtrail_name
+
+  s3_bucket_name = local.audit_bucket_name
 }

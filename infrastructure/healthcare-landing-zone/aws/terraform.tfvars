@@ -1,2 +1,5 @@
-aws_region  = "us-east-1"
 environment = "dev"
+
+project_name = "healthcare"
+
+kms_key_alias = "alias/aws/s3"
