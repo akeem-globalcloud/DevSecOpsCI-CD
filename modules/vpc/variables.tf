@@ -1,23 +1,40 @@
 variable "environment" {
-  type = string
+  description = "Deployment environment"
+  type        = string
+}
+
+variable "project_name" {
+  description = "Project name"
+  type        = string
 }
 
 variable "vpc_cidr" {
-  type = string
+  description = "VPC CIDR block"
+  type        = string
 }
 
 variable "public_subnet_cidr" {
-  type = string
+  description = "Public subnet CIDR"
+  type        = string
 }
 
 variable "private_app_subnet_cidr" {
-  type = string
+  description = "Private application subnet CIDR"
+  type        = string
 }
 
 variable "private_db_subnet_cidr" {
-  type = string
+  description = "Private database subnet CIDR"
+  type        = string
 }
 
 variable "availability_zone" {
-  type = string
+  description = "Availability Zone"
+  type        = string
+}
+
+variable "create_nat_gateway" {
+  description = "Whether to create a NAT Gateway and Elastic IP"
+  type        = bool
+  default     = false
 }

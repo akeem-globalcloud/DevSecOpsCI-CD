@@ -12,11 +12,6 @@ resource "aws_s3_bucket" "project_union_s3_logging" {
   bucket = var.logging_bucket_name
 }
 
-resource "aws_s3_bucket_acl" "project_union_s3_logging" {
-  bucket = aws_s3_bucket.project_union_s3_logging.id
-  acl    = "private"
-}
-
 resource "aws_s3_bucket_versioning" "project_union_s3_logging" {
   bucket = aws_s3_bucket.project_union_s3_logging.id
   versioning_configuration {
@@ -33,11 +28,20 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "encrypt_logging_s
       sse_algorithm     = "aws:kms"
     }
   }
-} 
+}
 
 
 
 resource "aws_s3_bucket_policy" "allow_to_receive_logs" {
-  bucket = aws_s3_bucket.project_union_s3_logging.id
+  bucket = aws_s3_bucket.project_union_s3.id
   policy = var.s3_bucket_policy
+}
+
+resource "aws_s3_bucket_public_access_block" "project_union_s3_logging" {
+  bucket = aws_s3_bucket.project_union_s3_logging.id
+  
+  block_public_acls       = true
+  ignore_public_acls      = true
+  block_public_policy     = true
+  restrict_public_buckets = true
 }

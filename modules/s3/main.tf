@@ -3,11 +3,6 @@ resource "aws_s3_bucket" "project_union_s3" {
   bucket = var.bucket_name
 }
 
-resource "aws_s3_bucket_acl" "project_union_s3" {
-  bucket = aws_s3_bucket.project_union_s3.id
-  acl    = "private"
-}
-
 resource "aws_s3_bucket_versioning" "project_union_s3" {
   bucket = aws_s3_bucket.project_union_s3.id
   versioning_configuration {
@@ -25,3 +20,13 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "encrypt_bucket" {
     }
   }
 }
+
+resource "aws_s3_bucket_public_access_block" "project_union_s3" {
+  bucket = aws_s3_bucket.project_union_s3.id
+
+  block_public_acls       = true
+  ignore_public_acls      = true
+  block_public_policy     = true
+  restrict_public_buckets = true
+}
+
