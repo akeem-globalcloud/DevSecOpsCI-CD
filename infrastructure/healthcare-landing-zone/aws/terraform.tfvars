@@ -18,3 +18,8 @@ private_db_subnet_cidr  = "10.0.3.0/24"
 availability_zone_index = 0
 
 create_nat_gateway = false
+
+enable_s3_protection      = true
+enable_runtime_monitoring = true
+enable_malware_protection = true
+enable_eks_protection     = false

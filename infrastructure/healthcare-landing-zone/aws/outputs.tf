@@ -29,3 +29,15 @@ output "config_bucket_name" {
 output "config_role_arn" {
   value = module.aws_config.config_role_arn
 }
+
+#############################################
+# GuardDuty
+#############################################
+
+output "guardduty_detector_id" {
+  value = module.guardduty.guardduty_detector_id
+}
+
+output "guardduty_status" {
+  value = module.guardduty.guardduty_status
+}

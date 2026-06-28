@@ -54,3 +54,24 @@ variable "create_nat_gateway" {
   type        = bool
   default     = false
 }
+
+
+variable "enable_s3_protection" {
+  type    = bool
+  default = true
+}
+
+variable "enable_runtime_monitoring" {
+  type    = bool
+  default = true
+}
+
+variable "enable_malware_protection" {
+  type    = bool
+  default = true
+}
+
+variable "enable_eks_protection" {
+  type    = bool
+  default = false
+}
